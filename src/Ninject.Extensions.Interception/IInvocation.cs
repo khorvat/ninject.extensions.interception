@@ -13,6 +13,7 @@
 #region Using Directives
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ninject.Extensions.Interception.Request;
 
 #endregion
@@ -44,5 +45,10 @@ namespace Ninject.Extensions.Interception
         /// if there are no more interceptors, calling the target method.
         /// </summary>
         void Proceed();
+        /// <summary>
+        /// Continues the invocation, either by invoking the next interceptor in the chain, or
+        /// if there are no more interceptors, calling the target method.
+        /// </summary>
+        Task ProceedAsync();
     }
 }

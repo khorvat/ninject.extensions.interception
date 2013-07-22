@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿#define NO_PARTIAL_TRUST
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 

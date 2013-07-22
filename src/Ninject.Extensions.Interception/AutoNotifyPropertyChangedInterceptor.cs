@@ -14,6 +14,7 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using Ninject.Extensions.Interception.Attributes;
 using Ninject.Extensions.Interception.Infrastructure.Language;
 
@@ -47,6 +48,25 @@ namespace Ninject.Extensions.Interception
             model.OnPropertyChanged(methodInfo.GetPropertyFromMethod(methodInfo.DeclaringType).Name);
 
             ChangeNotificationForDependentProperties(methodInfo, model);
+        }
+
+        /// <summary>
+        /// Intercepts the specified invocation.
+        /// </summary>
+        /// <param name="invocation">The invocation to intercept.</param>
+        public async Task InterceptAsync(IInvocation invocation)
+        {
+            bool valuesAreEqual = ArePropertyValuesEqual(invocation);
+            await invocation.ProceedAsync();
+            if (valuesAreEqual)
+            {
+                return;
+            }
+            MethodInfo methodInfo = invocation.Request.Method;
+            var model = (TViewModel)invocation.Request.Proxy;
+            model.OnPropertyChanged(methodInfo.GetPropertyFromMethod(methodInfo.DeclaringType).Name);
+
+            ChangeNotificationForDependentProperties(methodInfo, model);            
         }
 
         #endregion

@@ -10,6 +10,7 @@
 
 #endregion
 
+using System.Threading.Tasks;
 namespace Ninject.Extensions.Interception
 {
     /// <summary>
@@ -31,6 +32,16 @@ namespace Ninject.Extensions.Interception
             AfterInvoke( invocation );
         }
 
+        /// <summary>
+        /// Intercepts the specified invocation.
+        /// </summary>
+        /// <param name="invocation">The invocation to intercept.</param>
+        public async Task InterceptAsync(IInvocation invocation)
+        {
+            BeforeInvoke(invocation);
+            await invocation.ProceedAsync();
+            AfterInvoke(invocation);            
+        }
         #endregion
 
         /// <summary>

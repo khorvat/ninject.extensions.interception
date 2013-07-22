@@ -73,6 +73,22 @@ namespace Ninject.Extensions.Interception.Wrapper
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Intercepts the specified invocation.
+        /// </summary>
+        /// <param name="castleInvocation">The invocation.</param>
+        /// <returns>The return value of the invocation, once it is completed.</returns>
+        public async System.Threading.Tasks.Task InterceptAsync(Castle.DynamicProxy.IInvocation castleInvocation)
+        {
+            IProxyRequest request = CreateRequest(castleInvocation);
+            IInvocation invocation = CreateInvocation(request);
+
+            await invocation.ProceedAsync();
+
+            castleInvocation.ReturnValue = invocation.ReturnValue;
+        }
     }
 }
 

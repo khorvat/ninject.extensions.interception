@@ -14,6 +14,9 @@
 
 #region Using Directives
 
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 using LinFu.DynamicProxy;
 using Ninject.Activation;
 using Ninject.Extensions.Interception.Request;
@@ -28,6 +31,8 @@ namespace Ninject.Extensions.Interception.Wrapper
     /// </summary>
     public class LinFuWrapper : StandardWrapper, LinFu.DynamicProxy.IInterceptor
     {
+        protected static MethodInfo interceptGenericAsyncMethod = typeof(LinFuWrapper).GetMethod("InterceptGenericAsync", BindingFlags.Instance | BindingFlags.NonPublic);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LinFuWrapper"/> class.
         /// </summary>
@@ -41,14 +46,52 @@ namespace Ninject.Extensions.Interception.Wrapper
 
         #region IInterceptor Members
 
-        object LinFu.DynamicProxy.IInterceptor.Intercept( InvocationInfo info )
+        object LinFu.DynamicProxy.IInterceptor.Intercept(InvocationInfo info) 
         {
-            IProxyRequest request = CreateRequest( info );
-            IInvocation invocation = CreateInvocation( request );
+            IProxyRequest request = CreateRequest(info);
+            IInvocation invocation = CreateInvocation(request);
 
-            invocation.Proceed();
+            if (typeof(Task).IsAssignableFrom(invocation.Request.Method.ReturnType))
+            {
+                if (invocation.Request.Method.ReturnType.IsGenericType &&
+                    invocation.Request.Method.ReturnType.GetGenericTypeDefinition() == typeof(Task<>))
+                {
+                    Type itemType = invocation.Request.Method.ReturnType.GetGenericArguments()[0];
+                    var genericMethod = interceptGenericAsyncMethod.MakeGenericMethod(itemType);
+                    try
+                    {
+                        return genericMethod.Invoke(this, new object[] { invocation });
+                    }
+                    catch (System.Reflection.TargetInvocationException ex)
+                    {
+                        throw ex.InnerException;
+                    }
+                }
+                else
+                {
+                    return InterceptAsync(invocation);
+                }
+            }
+            else
+            {
+                invocation.Proceed();
+                return invocation.ReturnValue;
+            }
+        }
 
-            return invocation.ReturnValue;
+        async Task<T> InterceptGenericAsync<T>(IInvocation invocation)
+        {
+            await invocation.ProceedAsync();
+
+            return await ((Task<T>)invocation.ReturnValue);
+        }
+
+        async Task InterceptAsync(IInvocation invocation)
+        {
+            await invocation.ProceedAsync();
+
+            //Note: There is no return type for this kind of operation
+            //return invocation.ReturnValue;
         }
 
         #endregion

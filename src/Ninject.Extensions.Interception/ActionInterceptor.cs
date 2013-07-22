@@ -10,6 +10,7 @@
 #region Using Directives
 
 using System;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -40,6 +41,16 @@ namespace Ninject.Extensions.Interception
         public void Intercept( IInvocation invocation )
         {
             _interceptAction( invocation );
+        }
+
+        /// <summary>
+        /// Intercepts the specified invocation.
+        /// </summary>
+        /// <param name="invocation">The invocation to intercept.</param>
+        public Task InterceptAsync(IInvocation invocation)
+        {
+            _interceptAction(invocation);
+            return Task.FromResult(true);
         }
 
         #endregion

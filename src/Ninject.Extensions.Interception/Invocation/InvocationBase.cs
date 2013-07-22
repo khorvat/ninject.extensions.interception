@@ -13,6 +13,7 @@
 #region Using Directives
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ninject.Extensions.Interception.Infrastructure;
 using Ninject.Extensions.Interception.Request;
 
@@ -73,6 +74,23 @@ namespace Ninject.Extensions.Interception.Invocation
                  _enumerator.MoveNext() )
             {
                 _enumerator.Current.Intercept( this );
+            }
+            else
+            {
+                ReturnValue = CallTargetMethod();
+            }
+        }
+
+        /// <summary>
+        /// Continues the invocation, either by invoking the next interceptor in the chain, or
+        /// if there are no more interceptors, calling the target method.
+        /// </summary>
+        public async Task ProceedAsync()
+        {
+            if ((_enumerator != null) &&
+                 _enumerator.MoveNext())
+            {
+                await _enumerator.Current.InterceptAsync(this);
             }
             else
             {

@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception", "Ninject.Extensions.Interception\Ninject.Extensions.Interception.csproj", "{C99A5FAE-C6AD-4F24-A938-EC8BDDB885A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception", "src\Ninject.Extensions.Interception\Ninject.Extensions.Interception.csproj", "{C99A5FAE-C6AD-4F24-A938-EC8BDDB885A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.DynamicProxy2", "Ninject.Extensions.Interception.DynamicProxy2\Ninject.Extensions.Interception.DynamicProxy2.csproj", "{A728460A-B97B-471C-B7C3-8010DA8EFB2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.DynamicProxy2", "src\Ninject.Extensions.Interception.DynamicProxy2\Ninject.Extensions.Interception.DynamicProxy2.csproj", "{A728460A-B97B-471C-B7C3-8010DA8EFB2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.LinFu", "Ninject.Extensions.Interception.LinFu\Ninject.Extensions.Interception.LinFu.csproj", "{8E34CAFA-BAEB-4FCB-8A63-1266EB58F24E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.LinFu", "src\Ninject.Extensions.Interception.LinFu\Ninject.Extensions.Interception.LinFu.csproj", "{8E34CAFA-BAEB-4FCB-8A63-1266EB58F24E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.Tests", "Ninject.Extensions.Interception.Test\Ninject.Extensions.Interception.Tests.csproj", "{959234A6-9E16-4208-9311-0F0219EAF078}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.Tests", "src\Ninject.Extensions.Interception.Test\Ninject.Extensions.Interception.Tests.csproj", "{959234A6-9E16-4208-9311-0F0219EAF078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.SilverlightTests", "Ninject.Extensions.Interception.SilverlightTests\Ninject.Extensions.Interception.SilverlightTests.csproj", "{F9E74F42-F165-4F9B-A43B-2AB1CD6E847F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.SilverlightTests", "src\Ninject.Extensions.Interception.SilverlightTests\Ninject.Extensions.Interception.SilverlightTests.csproj", "{F9E74F42-F165-4F9B-A43B-2AB1CD6E847F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,10 +4,11 @@ namespace Ninject.Extensions.Interception
 
     using Ninject.Extensions.Interception.Fakes;
     using Ninject.Extensions.Interception.Infrastructure.Language;
+    using Ninject.Extensions.Interception.Interceptors;
+
     using Xunit;
     
-    public abstract class PropertyInterceptionContext<TInterceptionModule> :
-        InterceptionTestContext<TInterceptionModule> where TInterceptionModule : InterceptionModule, new()
+    public abstract class PropertyInterceptionContext : InterceptionTestContext
     {
         protected override StandardKernel CreateDefaultInterceptionKernel()
         {
@@ -107,6 +108,58 @@ namespace Ninject.Extensions.Interception
                 testString.Should().Be("empty");
                 obj.MyProperty.Should().Be("start");
                 testString.Should().Be("start");
+            }
+        }
+
+
+        [Fact]
+        public void NoneVirtualPropertyIntercepted_WhenResolveByInterface_ThenInterceptabe()
+        {
+            using (var kernel = CreateDefaultInterceptionKernel())
+            {
+                CountInterceptor.Reset();
+
+                const bool OriginalValue = true;
+                kernel.Bind<IFoo>().To<NoneVirtualFooImplementation>();
+                kernel.Intercept(ctx => ctx.Request.Service == typeof(IFoo)).With<CountInterceptor>();
+                var obj = kernel.Get<IFoo>();
+
+                obj.TestProperty = OriginalValue;
+                var value = obj.TestProperty;
+
+                CountInterceptor.Count.Should().Be(1);
+                value.Should().Be(OriginalValue);
+            }
+        }
+
+        [Fact]
+        public void SelfBoundTypesDeclaringPropertyInterceptorsAreIntercepted()
+        {
+            using (var kernel = CreateDefaultInterceptionKernel())
+            {
+                kernel.Bind<ObjectWithMethodInterceptor>().ToSelf();
+                var obj = kernel.Get<ObjectWithMethodInterceptor>();
+
+                CountInterceptor.Reset();
+
+                var value = obj.TestProperty;
+                obj.TestProperty = value;
+                CountInterceptor.Count.Should().Be(0);
+
+                var value2 = obj.TestProperty2;
+                obj.TestProperty2 = value2;
+                CountInterceptor.Count.Should().Be(1);
+            }
+        }
+
+        [Fact]
+        public void ClassesWithMultiplePropertiesWithTheSameNameCanBeInjected()
+        {
+            using (var kernel = CreateDefaultInterceptionKernel())
+            {
+                kernel.Bind<SameNameProperty>().ToSelf();
+                var obj = kernel.Get<SameNameProperty>();
+                obj.Should().NotBeNull();
             }
         }
     }

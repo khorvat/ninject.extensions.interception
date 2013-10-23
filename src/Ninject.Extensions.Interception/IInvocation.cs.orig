@@ -45,16 +45,19 @@ namespace Ninject.Extensions.Interception
         /// if there are no more interceptors, calling the target method.
         /// </summary>
         void Proceed();
+<<<<<<< HEAD
         /// <summary>
         /// Continues the invocation, either by invoking the next interceptor in the chain, or
         /// if there are no more interceptors, calling the target method.
         /// </summary>
         Task ProceedAsync();
+=======
 
         /// <summary>
         /// Creates a clone of the invocation
         /// </summary>
         /// <returns>The clone</returns>
         IInvocation Clone();
+>>>>>>> 4d4a48e0e1d5d7cf72d767e5c503560613e55926
     }
 }

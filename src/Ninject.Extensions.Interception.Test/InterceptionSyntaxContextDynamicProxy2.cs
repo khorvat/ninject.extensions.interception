@@ -1,6 +1,25 @@
 namespace Ninject.Extensions.Interception
 {
-    public class InterceptionSyntaxContextDynamicProxy2 : InterceptionSyntaxContext<DynamicProxyModule>
+    using System;
+
+    using Castle.DynamicProxy;
+
+    public class InterceptionSyntaxContextDynamicProxy2 : InterceptionSyntaxContext
     {
+        protected override InterceptionModule InterceptionModule
+        {
+            get
+            {
+                return new DynamicProxyModule();
+            }
+        }
+
+        protected override Type ProxyType
+        {
+            get
+            {
+                return typeof(IProxyTargetAccessor);
+            }
+        }
     }
 }

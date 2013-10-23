@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET_40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -84,6 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncInterceptionContext.cs" />
+    <Compile Include="AsyncInterceptionContextDynamicProxy2.cs" />
+    <Compile Include="AsyncInterceptionContextLinFu.cs" />
     <Compile Include="Attributes\FlagAttribute.cs" />
     <Compile Include="AutoNotifyPropertyChangedContextDynamicProxy2.cs" />
     <Compile Include="AutoNotifyPropertyChangedContextLinFu.cs" />
@@ -96,6 +99,8 @@
     <Compile Include="AutoNotifyPropertyMethodInterceptorContext.cs" />
     <Compile Include="AutoNotifyPropertyMethodInterceptorContextDynamicProxy2.cs" />
     <Compile Include="AutoNotifyPropertyMethodInterceptorContextLinFu.cs" />
+    <Compile Include="Fakes\Base.cs" />
+    <Compile Include="Fakes\Derived.cs" />
     <Compile Include="DynamicProxy2BaseTests.cs" />
     <Compile Include="DynamicProxy2ChannelFactoryProxyTest.cs" />
     <Compile Include="DynamicProxy2InterceptionContext.cs" />
@@ -111,6 +116,8 @@
     <Compile Include="Fakes\ViewModelBase.cs" />
     <Compile Include="Fakes\ViewModelWithClassNotify.cs" />
     <Compile Include="Fakes\FooImpl.cs" />
+    <Compile Include="Fakes\IBase.cs" />
+    <Compile Include="Fakes\IDerived.cs" />
     <Compile Include="InterceptionSyntaxContext.cs" />
     <Compile Include="InterceptionSyntaxContextDynamicProxy2.cs" />
     <Compile Include="InterceptionSyntaxContextLinFu.cs" />

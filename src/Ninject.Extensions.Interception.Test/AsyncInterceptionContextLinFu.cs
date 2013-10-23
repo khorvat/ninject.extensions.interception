@@ -1,7 +1,7 @@
-﻿#if !SILVERLIGHT
+#if !NET_35 && !SILVERLIGHT
 namespace Ninject.Extensions.Interception
 {
-    public class MethodInterceptionContextLinFu : MethodInterceptionContext
+    public class AsyncInterceptionContextLinFu : AsyncInterceptionContext
     {
         protected override InterceptionModule InterceptionModule
         {

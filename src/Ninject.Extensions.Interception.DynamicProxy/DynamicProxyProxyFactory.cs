@@ -17,7 +17,9 @@
 using System;
 using System.Linq;
 using Castle.DynamicProxy;
+using Castle.DynamicProxy.Serialization;
 using Ninject.Activation;
+using Ninject.Extensions.Interception.Parameters;
 using Ninject.Extensions.Interception.Wrapper;
 using Ninject.Infrastructure;
 using Ninject.Parameters;
@@ -26,7 +28,6 @@ using Ninject.Parameters;
 
 namespace Ninject.Extensions.Interception.ProxyFactory
 {
-    using Castle.DynamicProxy.Serialization;
 
     /// <summary>
     /// An implementation of a proxy factory that uses a Castle DynamicProxy2 <see cref="ProxyGenerator"/>
@@ -88,24 +89,28 @@ namespace Ninject.Extensions.Interception.ProxyFactory
         /// <param name="reference">The <see cref="InstanceReference"/> to wrap.</param>
         public override void Wrap(IContext context, InstanceReference reference)
         {
-            if (reference.Instance is IInterceptor)
+            if (reference.Instance is IInterceptor ||
+                reference.Instance is IProxyTargetAccessor)
             {
                 return;
             }
 
             var wrapper = new DynamicProxyWrapper(Kernel, context, reference.Instance);
+
             Type targetType = context.Request.Service;
+
+            Type[] additionalInterfaces = context.Parameters.OfType<AdditionalInterfaceParameter>().Select(ai => (Type)ai.GetValue(context, null)).ToArray();
 
             if (targetType.IsInterface)
             {
-                reference.Instance = this.generator.CreateInterfaceProxyWithoutTarget(targetType, InterfaceProxyOptions, wrapper);
+                reference.Instance = this.generator.CreateInterfaceProxyWithoutTarget(targetType, additionalInterfaces, InterfaceProxyOptions, wrapper);
             }
             else
             {
                 object[] parameters = context.Parameters.OfType<ConstructorArgument>()
                     .Select(parameter => parameter.GetValue(context, null))
                     .ToArray();
-                reference.Instance = this.generator.CreateClassProxy(targetType, ProxyOptions, parameters, wrapper);
+                reference.Instance = this.generator.CreateClassProxy(targetType, additionalInterfaces, ProxyOptions, parameters, wrapper);
             }
         }
 

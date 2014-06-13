@@ -1,10 +1,12 @@
-Version 3.0.2
+Version 3.2.0
 -------------
+- Bugfix: #26: Wrong interceptor is chosen when multiple bindings exist for same service type
 - Bugfix: Don't crash if there's a special method that is less than 4 characters long, some obvuscated code has this
 - Bugfix: #15: Methods from derived classes can be invoked without getting an Interface not found exception
 - Added: Interface Proxies allow to intercept "System.Object" methods (ToString, GetHashCode, Equals) now.
 - Added: AsyncInterceptor as base class for interceptors that support interception of async methods.
-- Added: Intercept<T>() can now be used after OnActivation() Syntax.
+- Added: `Intercept<T>()` can now be used after `OnActivation()` syntax.
+- Added: Proxies can now implement additional interfaces. `Intercept<T>()` is now `Intercept<T>(params Type[] additionalInterfaces)`.
 
 Version 3.0.0.0
 ---------------

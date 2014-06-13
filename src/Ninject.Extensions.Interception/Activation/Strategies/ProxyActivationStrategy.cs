@@ -27,6 +27,20 @@ namespace Ninject.Extensions.Interception.Activation.Strategies
     /// </summary>
     public class ProxyActivationStrategy : ActivationStrategy
     {
+        private readonly IAdviceRegistry adviceRegistry;
+        private readonly IProxyFactory proxyFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProxyActivationStrategy"/> class.
+        /// </summary>
+        /// <param name="adviceRegistry">The advice registry.</param>
+        /// <param name="proxyFactory">The proxy factory.</param>
+        public ProxyActivationStrategy(IAdviceRegistry adviceRegistry, IProxyFactory proxyFactory)
+        {
+            this.adviceRegistry = adviceRegistry;
+            this.proxyFactory = proxyFactory;
+        }
+
         /// <summary>
         /// Activates the specified context.
         /// </summary>
@@ -36,8 +50,9 @@ namespace Ninject.Extensions.Interception.Activation.Strategies
         {
             if ( ShouldProxy( context ) )
             {
-                context.Kernel.Components.Get<IProxyFactory>().Wrap( context, reference );
+                this.proxyFactory.Wrap( context, reference );
             }
+
             base.Activate( context, reference );
         }
 
@@ -61,9 +76,9 @@ namespace Ninject.Extensions.Interception.Activation.Strategies
         /// </summary>
         /// <param name="context">The activation context.</param>
         /// <returns><see langword="True"/> if the instance should be proxied, otherwise <see langword="false"/>.</returns>
-        protected virtual bool ShouldProxy( IContext context )
+        protected virtual bool ShouldProxy(IContext context)
         {
-            if (context.Kernel.Components.Get<IAdviceRegistry>().HasAdvice(context))
+            if (this.adviceRegistry.HasAdvice(context))
             {
                 return true;
             }

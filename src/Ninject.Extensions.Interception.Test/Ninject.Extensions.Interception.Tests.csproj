@@ -109,6 +109,8 @@
     <Compile Include="Fakes\DummyProxyFactory.cs" />
     <Compile Include="Fakes\FooWithNoDefaultConstructor.cs" />
     <Compile Include="Fakes\IFooService.cs" />
+    <Compile Include="Fakes\ImplicitDerived.cs" />
+    <Compile Include="Fakes\ImplicitDerivedFromVirtualBase.cs" />
     <Compile Include="Fakes\RefAndOutValues.cs" />
     <Compile Include="Fakes\SameNameProperty.cs" />
     <Compile Include="Fakes\SameNamePropertyBase.cs" />
@@ -118,6 +120,10 @@
     <Compile Include="Fakes\FooImpl.cs" />
     <Compile Include="Fakes\IBase.cs" />
     <Compile Include="Fakes\IDerived.cs" />
+    <Compile Include="Fakes\VirtualBase.cs" />
+    <Compile Include="ImplicitInterfaceContextLinFu.cs" />
+    <Compile Include="ImplicitInterfaceContext.cs" />
+    <Compile Include="ImplicitInterfaceContextDynamicProxy2.cs" />
     <Compile Include="InterceptionSyntaxContext.cs" />
     <Compile Include="InterceptionSyntaxContextDynamicProxy2.cs" />
     <Compile Include="InterceptionSyntaxContextLinFu.cs" />
@@ -145,6 +151,9 @@
     <Compile Include="Fakes\ViewModel.cs" />
     <Compile Include="PropertyInterceptionContextDynamicProxy2.cs" />
     <Compile Include="PropertyInterceptionContextLinFu.cs" />
+    <Compile Include="SystemObjectMethodInterceptionContext.cs" />
+    <Compile Include="SystemObjectMethodInterceptionContextDynamicProxy2.cs" />
+    <Compile Include="SystemObjectMethodInterceptionContextLinFu.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ninject.Extensions.Interception.DynamicProxy\Ninject.Extensions.Interception.DynamicProxy.csproj">
@@ -179,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

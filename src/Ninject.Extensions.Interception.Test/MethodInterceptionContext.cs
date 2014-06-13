@@ -173,7 +173,7 @@ namespace Ninject.Extensions.Interception
                 CountInterceptor.Count.Should().Be(1);
 
                 obj.DoDerived();
-                CountInterceptor.Count.Should().Be(1);
+                CountInterceptor.Count.Should().Be(2);
             }
         }
 
@@ -279,7 +279,8 @@ namespace Ninject.Extensions.Interception
             {
                 CountInterceptor.Reset();
 
-                kernel.Bind<IFoo>().To<NoneVirtualFooImplementation>().Intercept().With<CountInterceptor>();
+                kernel.Bind<IFoo>().To<NoneVirtualFooImplementation>()
+                    .Intercept(mi => true).With<CountInterceptor>();
                 var obj = kernel.Get<IFoo>();
                 var result42 = obj.Equals(42);
                 var result41 = obj.Equals(41);
@@ -314,6 +315,34 @@ namespace Ninject.Extensions.Interception
                 kernel.Bind<ObjectWithMethodInterceptor>().ToSelf();
                 var obj = kernel.Get<ObjectWithMethodInterceptor>();
                 obj.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void NamedBindingsUseTheCorrectInterceptor()
+        {
+            using (var kernel = CreateDefaultInterceptionKernel())
+            {
+                CountInterceptor.Reset();
+                FlagInterceptor.Reset();
+
+                kernel.Bind<IFoo>().To<FooImpl>().Named("1");
+                kernel.Bind<IFoo>().To<FooWithNoDefaultConstructor>().Named("2");
+                kernel.Bind<IMock>().To<SimpleObject>();
+
+                kernel.Intercept(ctx => ctx.Plan.Type == typeof(FooImpl)).With<CountInterceptor>();
+                kernel.Intercept(ctx => ctx.Plan.Type == typeof(FooWithNoDefaultConstructor)).With<FlagInterceptor>();
+
+                var foo1 = kernel.Get<IFoo>(ctx => ctx.Name == "1");
+                var foo2 = kernel.Get<IFoo>(ctx => ctx.Name == "2");
+
+                foo1.Foo();
+                CountInterceptor.Count.Should().Be(1);
+                FlagInterceptor.WasCalled.Should().BeFalse();
+
+                foo2.Foo();
+                CountInterceptor.Count.Should().Be(1);
+                FlagInterceptor.WasCalled.Should().BeTrue();
             }
         }
     }

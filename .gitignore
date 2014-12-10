@@ -10,9 +10,4 @@ build
 *.dotCover
 /lib/Ninject/*.zip
 /lib/Ninject/*/**
-src/packages/Castle.Core.3.2.0/
-src/packages/LinFu.DynamicProxy.OfficialRelease.1.0.5/
-src/packages/Ninject.3.0.1.10/
-BuildNuGetPackages.cmd
-nuget-linfu/Ninject.Extensions.Interception.Linfu.3.0.0-async02.nuspec
-nuget/Ninject.Extensions.Interception.3.0.0-async02.nuspec
+src/packages/

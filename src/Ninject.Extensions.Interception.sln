@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception", "Ninject.Extensions.Interception\Ninject.Extensions.Interception.csproj", "{C99A5FAE-C6AD-4F24-A938-EC8BDDB885A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.Interception.LinFu", "Ninject.Extensions.Interception.LinFu\Ninject.Extensions.Interception.LinFu.csproj", "{8E34CAFA-BAEB-4FCB-8A63-1266EB58F24E}"

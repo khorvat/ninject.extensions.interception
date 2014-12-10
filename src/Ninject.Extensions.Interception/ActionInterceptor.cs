@@ -1,36 +1,42 @@
 #region License
 
-// 
-// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-// See the file LICENSE.txt for details.
-// 
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL). See the file
+// LICENSE.txt for details.
 
-#endregion
+#endregion License
 
 #region Using Directives
 
 using System;
 using System.Threading.Tasks;
 
-#endregion
+#endregion Using Directives
 
 namespace Ninject.Extensions.Interception
 {
     /// <summary>
-    /// Provides the ability to supply an action which will be invoked during method inteterception.
+    /// Provides the ability to supply an action which will be invoked during method interception.
     /// </summary>
     public class ActionInterceptor : IInterceptor
     {
+        #region Fields
+
         private readonly Action<IInvocation> _interceptAction;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionInterceptor"/> class.
         /// </summary>
         /// <param name="interceptAction">The intercept action to take.</param>
-        public ActionInterceptor( Action<IInvocation> interceptAction )
+        public ActionInterceptor(Action<IInvocation> interceptAction)
         {
             _interceptAction = interceptAction;
         }
+
+        #endregion Constructors
 
         #region IInterceptor Members
 
@@ -38,9 +44,9 @@ namespace Ninject.Extensions.Interception
         /// Intercepts the specified invocation.
         /// </summary>
         /// <param name="invocation">The invocation to intercept.</param>
-        public void Intercept( IInvocation invocation )
+        public void Intercept(IInvocation invocation)
         {
-            _interceptAction( invocation );
+            _interceptAction(invocation);
         }
 
         /// <summary>
@@ -53,6 +59,6 @@ namespace Ninject.Extensions.Interception
             return Task.FromResult(true);
         }
 
-        #endregion
+        #endregion IInterceptor Members
     }
 }

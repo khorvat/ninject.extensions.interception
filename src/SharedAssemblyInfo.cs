@@ -15,8 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProductAttribute("Ninject.Extensions.Interception: Interception extension for Ninject")]
 [assembly: AssemblyCompanyAttribute("Ninject Project Contributors")]
 [assembly: AssemblyCopyrightAttribute("Copyright © 2008-2012 Ninject Project Contributors and contributors")]
-[assembly: AssemblyVersionAttribute("3.0.0.0")]
-[assembly: AssemblyFileVersionAttribute("3.0.0.8")]
+[assembly: AssemblyVersionAttribute("3.2.0.0")]
+[assembly: AssemblyFileVersionAttribute("3.2.0.8")]
 [assembly: ComVisibleAttribute(false)]
 [assembly: CLSCompliantAttribute(true)]
-

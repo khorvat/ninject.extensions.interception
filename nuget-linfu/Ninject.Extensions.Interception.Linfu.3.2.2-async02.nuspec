@@ -2,7 +2,7 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Ninject.Extensions.Interception.Linfu</id>
-    <version>3.2.2-async01</version>
+    <version>3.2.2-async02</version>
     <authors>Ninject Project Contributors</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
 	<licenseUrl>https://github.com/ninject/ninject.extensions.interception/raw/master/LICENSE.txt</licenseUrl>
@@ -13,7 +13,7 @@
 	<iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
 	<projectUrl>http://www.ninject.org</projectUrl>
     <dependencies>
-      <dependency id="Ninject.Extensions.Interception" version="3.2.2-async01" />
+      <dependency id="Ninject.Extensions.Interception" version="3.2.2-async02" />
 	  <dependency id="LinFu.DynamicProxy.OfficialRelease" version="1.0.5" />
 	  <dependency id="Ninject" version="(,3.3]" />
     </dependencies> 
